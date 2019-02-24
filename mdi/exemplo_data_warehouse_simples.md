@@ -36,3 +36,8 @@
 ![img 10](docs/img10.png)
 
 Se você chegou até aqui sem nenhum erro, você conseguiu importar o sakila database em seu mysql :bowtie:
+
+### 2 - Pentaho Data Integration
+
+  Iremos utilizar aqui Pentaho Data Integration para criar o espelho do nosso DW, não irei mostrar aqui como funciona a instalação do PDI, pois sua instalação é simples, basta apenas fazer uma simples pesquisa que você certamente vai conseguir.
+  
