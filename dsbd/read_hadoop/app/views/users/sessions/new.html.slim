@@ -1,0 +1,25 @@
+section#cover
+  #cover-caption
+    #container.container
+      .row
+        .col-sm-4.offset-sm-4.text-center
+          h3 style="margin-top: 80px; font-family: Pacifico; border: 1px solid white;"
+            ' Read Hadoop - Log In
+          .info-form
+            = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+              .form-group
+                = f.label :email
+                = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control'
+              .form-group
+                = f.label :password, class: 'label sr-only'
+                = f.password_field :password, autocomplete: "current-password", class: 'form-control'
+
+              - if devise_mapping.rememberable?
+                .field.text-left
+                  = f.check_box :remember_me
+                  = f.label :remember_me
+
+              = f.submit "Log in", class: 'btn btn-success btn-lg btn-block'
+
+            .field.text-left
+              = render "users/shared/links"
