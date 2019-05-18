@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>File Inputs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Local</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @file_inputs.each do |file_input| %>
+      <tr>
+        <td><%= file_input.name %></td>
+        <td><%= file_input.local %></td>
+        <td><%= file_input.user %></td>
+        <td><%= link_to 'Show', file_input %></td>
+        <td><%= link_to 'Edit', edit_file_input_path(file_input) %></td>
+        <td><%= link_to 'Destroy', file_input, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New File Input', new_file_input_path %>
