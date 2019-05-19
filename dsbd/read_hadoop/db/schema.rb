@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_05_18_190241) do
 
   create_table "file_inputs", force: :cascade do |t|
     t.string "name"
-    t.string "local"
+    t.string "local_file"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

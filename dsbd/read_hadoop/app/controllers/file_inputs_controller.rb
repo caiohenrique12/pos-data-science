@@ -29,6 +29,7 @@ class FileInputsController < ApplicationController
 
     respond_to do |format|
       if @file_input.save
+        @file_input.mv_file_tmp(params[:file_input][:file].tempfile, params[:file_input][:file].original_filename)
         format.html { redirect_to file_inputs_path, notice: 'File was successfully created.' }
         format.json { render :show, status: :created, location: @file_input }
       else
@@ -70,6 +71,6 @@ class FileInputsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def file_input_params
-      params.require(:file_input).permit(:name, :local, :user_id)
+      params.require(:file_input).permit(:name, :user_id, :file)
     end
 end

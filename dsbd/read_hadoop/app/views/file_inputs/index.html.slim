@@ -5,7 +5,7 @@ nav[aria-label="breadcrumb"]
 
 p#notice
   = notice
-  
+
 h2 Lists File
 table.table.table-striped
   thead
@@ -18,8 +18,8 @@ table.table.table-striped
     - @file_inputs.each do |file_input|
       tr
         td = file_input.name
-        td = file_input.local
-        td = file_input.user
+        td = file_input.local_file
+        td = file_input.user.email
         td
            = link_to 'Show', file_input
            = link_to 'Edit', edit_file_input_path(file_input)
