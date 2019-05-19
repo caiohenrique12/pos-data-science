@@ -25,10 +25,11 @@ class FileInputsController < ApplicationController
   # POST /file_inputs.json
   def create
     @file_input = FileInput.new(file_input_params)
+    @file_input.user_id = current_user.id
 
     respond_to do |format|
       if @file_input.save
-        format.html { redirect_to @file_input, notice: 'File input was successfully created.' }
+        format.html { redirect_to file_inputs_path, notice: 'File was successfully created.' }
         format.json { render :show, status: :created, location: @file_input }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class FileInputsController < ApplicationController
   def update
     respond_to do |format|
       if @file_input.update(file_input_params)
-        format.html { redirect_to @file_input, notice: 'File input was successfully updated.' }
+        format.html { redirect_to file_inputs_path, notice: 'File was successfully updated.' }
         format.json { render :show, status: :ok, location: @file_input }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class FileInputsController < ApplicationController
   def destroy
     @file_input.destroy
     respond_to do |format|
-      format.html { redirect_to file_inputs_url, notice: 'File input was successfully destroyed.' }
+      format.html { redirect_to file_inputs_url, notice: 'File was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

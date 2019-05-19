@@ -1,0 +1,7 @@
+nav[aria-label="breadcrumb"]
+  ol.breadcrumb
+    li.breadcrumb-item Dashboard
+    li.breadcrumb-item = link_to "Files", file_inputs_path
+    li.breadcrumb-item.active Update File
+
+= render 'form', file_input: @file_input
