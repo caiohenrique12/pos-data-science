@@ -15,22 +15,21 @@ class Producer(threading.Thread):
                      , os.environ['CONSUMER_SECRET']
                      , os.environ['TOKEN_KEY_TWITTER']
                      , os.environ['TOKEN_SECRET_TWITTER'])
-    
+
     while True:
-      req = api.request('search/tweets', {'q': 'favorites'})
-      producer.send('favorite_tweets', Producer().iterate_tweets(req))
+      req = api.request('search/tweets', {'q': 'pizza'})
+      producer.send('tweets', Producer().iterate_tweets(req))
       time.sleep(random.randint(0, 2))
 
   def iterate_tweets(self, request):
-    tweets = {}
+    message = []
 
     for item in request:
-      if item['retweet_count'] > 0:
-        tweets.update({f"{item['user']['screen_name']}": {'msg': "Favorite Tweet", 'text': item['text'], 'retweet_count': item['retweet_count'], 'location': item['user']['location']}})
-      else:
-        tweets.update({f"{item['user']['screen_name']}": {'msg': "Not favorite Tweet", 'text': item['text'], 'location': item['user']['location']}})
+      tweets = []
+      tweets = {'name': item['user']['screen_name'], 'text': item['text'],
+                'retweet_count': item['retweet_count'], 'location': item['user']['location']}
 
-    message = [item['id'], tweets]
+      message.append([item['id'], tweets])
 
     return message
 
@@ -38,11 +37,17 @@ class Consumer(threading.Thread):
 
   def run(self):
     stream = KafkaConsumer(bootstrap_servers='localhost:9092', auto_offset_reset='latest')
-    stream.subscribe(['favorite_tweets'])
-
+    stream.subscribe(['tweets'])
+    unlike_tweets = 0
+    
     for tuple in stream:
-      print(tuple.value)
-
+      for item in json.loads(tuple.value):
+        if int(item[1]['retweet_count']) > 0:
+          print(item[1])
+        else:
+          unlike_tweets += 1
+          print(f"Unlike tweets: {unlike_tweets}")
+        
 if __name__ == '__main__':
   threads = [
     Producer(),
