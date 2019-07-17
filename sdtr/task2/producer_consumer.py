@@ -5,7 +5,6 @@ import time
 
 from kafka import KafkaConsumer, KafkaProducer
 
-
 class Producer(threading.Thread):
 
   def run(self):
@@ -55,6 +54,7 @@ class Consumer(threading.Thread):
 
 if __name__ == '__main__':
   threads = [
+      Producer(),
       Producer(),
       Producer(),
       Producer(),
