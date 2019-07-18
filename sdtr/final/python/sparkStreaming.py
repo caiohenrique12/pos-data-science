@@ -8,7 +8,6 @@ if __name__ == "__main__":
 
 	sc = SparkContext(master="local[2]", appName="StreamingErrorCount")
 	# set to 20 seconds for interval
-	# ssc = StreamingContext(sc, 1) use this for get the number ERRORS in real time
 	ssc = StreamingContext(sc, 20)
 
 	# fault tolerance
