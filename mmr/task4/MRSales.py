@@ -8,22 +8,22 @@ class MRSales(MRJob):
         split_line = line.split(',')
         country = split_line[7]
         product = split_line[1]
-        qtd = split_line[2]
         
-        yield country, (product, qtd)
+        yield country, product
         
     def reducer(self, key, values):
-        to_list = list(values)
-        list_prod = {}
-        sum_qtd = 0
+        values_to_list = list(values)
+        dict_product = {}
+        count = 0
         
-        for item in to_list:
-            sum_qtd += int(item[1])
-            if item[0] in list_prod:
-                list_prod[item[0]] = {}
-            list_prod[item[0]] = sum_qtd
+        for item in values_to_list:
+            if item not in dict_product:
+                dict_product[item] = {}
+            
+            count += 1
+            dict_product[item] = count
         
-        yield key, list_prod
+        yield key, dict_product
         
         
 if __name__ == '__main__':
